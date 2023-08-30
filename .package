@@ -1,0 +1,4 @@
+file anypkg.go
+
+import github.com/tidwall/hashmap.c v0.1.1
+import github.com/tidwall/btree.c   v0.1.1

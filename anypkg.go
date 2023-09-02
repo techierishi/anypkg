@@ -308,6 +308,10 @@ func fetch(cmd, url, outdir string) error {
 	if err != nil {
 		return fmt.Errorf("failed to create temporary folder: %s", err)
 	}
+	err = os.MkdirAll(pdir, 0755)
+	if err != nil {
+		return fmt.Errorf("failed to create pdir folder: %s", err)
+	}
 
 	err = os.Chdir(pdir)
 	if err != nil {

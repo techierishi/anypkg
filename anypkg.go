@@ -243,6 +243,9 @@ func readFile(filePath string, onEachLine func(lineText string, lineNumber int))
 func execImport(lineText string, lineNumber int) {
 	outdir := "."
 	args := strings.Split(lineText, " ")
+	if len(args) < 3 || len(args) > 5 {
+		fmt.Fprintln(os.Stderr, "Invalid usage: bad syntax for import")
+	}
 	log.Println("args", args)
 	for idx, arg := range args {
 		if arg == "->" {
@@ -324,13 +327,11 @@ func fetch(cmd, url, outdir string) error {
 		err = curlx(url)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error fetching .package: %v\n", err)
-			os.Exit(1)
 		}
 
 		packageContent, err := ioutil.ReadFile(".package")
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error reading .package: %v\n", err)
-			os.Exit(1)
 		}
 
 		lines := strings.Split(string(packageContent), "\n")
